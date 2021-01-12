@@ -1,9 +1,10 @@
 // reference : https://velog.io/@kdydesign/Lerna%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Mono-Repo-%EA%B5%AC%EC%B6%95-%EC%99%84%EB%B2%BD-%EA%B0%80%EC%9D%B4%EB%93%9C-%EA%B0%9C%EB%85%90-%EC%A0%95%EB%A6%AC
 // https://y0c.github.io/2019/06/14/monorepo-tutorial/
 
+
 Mono-Repo를 사용하기 좋은 경우
 
-1. 서로 다른 패키지가 연관 관계를 가질 때
+1. 서로 다른 패키지가 연관 관계를 가질 때(동일 모듈을 다른 프로젝트에도 같이 사용해야 될 때 등)
 2. 첫번째 항목이 고려된 상황에서 N개의 패키지의 형태와 목적이 유사한 경우
 3. 두번째 항목이 고려된 상황에서 N개의 패키지 중 배포되어야 할 패키지의 비중이 큰 경우
 
