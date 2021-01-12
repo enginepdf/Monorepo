@@ -30,3 +30,8 @@ lerna publish
 
 lerna exec
 
+
+
+Module resolving(search the module inside of node_modules if not go to parent one)
+
+require('specific-module') instead of require('../specific-module') then find the module under node_module folder
