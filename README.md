@@ -1,5 +1,5 @@
 
-# Monorepo
+# MonoRepo
 
 - 하나의 저장소에서 test, build, release 한 번에 진행 가능
 - 모듈별 개별적 버전 관리
@@ -8,6 +8,7 @@
 - Repository의 거대화로 분산된 CI Build보다 느릴 수 있다
 - Package간 과도한 의존 관계 나타날 수 있음
 - 하나의 개발 도구로 열 경우 해당 package의 인덱싱 처리 속도가 길어질 수 있다.
+
 
 ## Mono-Repo를 사용하기 좋은 경우
 
@@ -99,6 +100,14 @@ Lerna : Mono-Repo를 위한 CLI 도구, git, npm을 사용하여 mono-repo 관�
 
 Lerna의 기본 구조 : Root 경로 아래 packages 폴더가 있고 그 하위에 각 package 별 폴더 생성
                  Root 경로의 package.json에는 모든 package가 공통으로 사용되는 dependencies가 명시
+
+Fixed Mode : 다중 패키지의 버전이 단일 버전 라인에서 작동하며 관리
+             버전은 프로젝트 root에서 관리, lerna publish를 실행할 경우 새 버전으로 패키지 게시
+             하나의 패키지가 수정되더라도 모든 패키지는 새로운 버전 게시
+
+Independent Mode : 패키지의 유지 관리자가 독립적으로 패키지 버전 관리
+                   lerna publish 시 변경된 패키지에 대해서만 새 버전 업데이트
+                   버전은 각 패키지의 package.json에 명시
 
 
 lerna clean : root 제외한 package의 node_modules 제거
