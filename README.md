@@ -1,6 +1,3 @@
-### reference  
-https://velog.io/@kdydesign/Lerna%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Mono-Repo-%EA%B5%AC%EC%B6%95-%EC%99%84%EB%B2%BD-%EA%B0%80%EC%9D%B4%EB%93%9C-%EA%B0%9C%EB%85%90-%EC%A0%95%EB%A6%AC
-https://y0c.github.io/2019/06/14/monorepo-tutorial/
 
 # Monorepo
 
@@ -25,7 +22,8 @@ require('specific-module') instead of require('../specific-module') then find th
 
 1. yarn init  (for root package.json)
 
-``` package.json
+root/package.json
+``` 
 {
   "private": true,   
   "workspaces": [
@@ -39,7 +37,8 @@ require('specific-module') instead of require('../specific-module') then find th
 cd packages/functions && yarn init -y
 cd packages/server && yarn init -y
 
-``` server/package.json
+server/package.json
+``` 
 {
   "name": "@project/server",   // npm에서 가지고 온 모듈과 구분 위해 @포함한 prefix 사용 
   "version": "1.0.0",
@@ -52,8 +51,8 @@ cd packages/server && yarn init -y
 
 4. server 패키지에서 functions 모듈을 참조
 
-```packages/functions/index.js
-
+packages/functions/index.js
+```
 module.exports = () => {
   console.log('this works!');
 };
@@ -61,33 +60,33 @@ module.exports = () => {
 
 yarn workspace @project/server add @project/functions@1.0.0  // server 패키지에 functions 의존성 추가
 
-
-``` packages/server/index.js
-
+packages/server/index.js
+``` 
 const check=require('@project/functions');
 check()
 ```
 
 5. server/index.js 실행
 
-node pakcages/server/index
+node packages/server/index
 
 6. npm 모듈 추가
 
-
-``` packages/server/package.json
+packages/server/package.json
+``` 
 "dependencies": {
   "@project/functions": "1.0.0",
   ...
 }
 ```
 
-```packages/functions/package.json
-
+packages/functions/package.json
+```
 "dependencies": {
   ...
 }
 ```
+
 Hoist : root에서 yarn install 시에 공통된 모듈에 같은 버전이면 hoist 되어 root 폴더의 node_modules에 설치
 
 
@@ -109,3 +108,8 @@ lerna publish
 
 lerna exec
 
+
+### reference  
+https://velog.io/@kdydesign/Lerna%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Mono-Repo-%EA%B5%AC%EC%B6%95-%EC%99%84%EB%B2%BD-%EA%B0%80%EC%9D%B4%EB%93%9C-%EA%B0%9C%EB%85%90-%EC%A0%95%EB%A6%AC
+
+https://y0c.github.io/2019/06/14/monorepo-tutorial/
