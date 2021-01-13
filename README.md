@@ -1,5 +1,6 @@
-// reference : https://velog.io/@kdydesign/Lerna%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Mono-Repo-%EA%B5%AC%EC%B6%95-%EC%99%84%EB%B2%BD-%EA%B0%80%EC%9D%B4%EB%93%9C-%EA%B0%9C%EB%85%90-%EC%A0%95%EB%A6%AC
-// https://y0c.github.io/2019/06/14/monorepo-tutorial/
+### reference  
+https://velog.io/@kdydesign/Lerna%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Mono-Repo-%EA%B5%AC%EC%B6%95-%EC%99%84%EB%B2%BD-%EA%B0%80%EC%9D%B4%EB%93%9C-%EA%B0%9C%EB%85%90-%EC%A0%95%EB%A6%AC
+https://y0c.github.io/2019/06/14/monorepo-tutorial/
 
 # Monorepo
 
