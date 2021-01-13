@@ -29,7 +29,7 @@ require('specific-module') instead of require('../specific-module') then find th
 root/package.json
 ``` 
 {
-  "private": true,   
+  "private": true, //  Workspaces are not meant to be published, so we’ve added this safety measure to make sure that nothing can accidentally expose them
   "workspaces": [
     "packages/*"
   ]	
@@ -93,14 +93,17 @@ packages/functions/package.json
 
 Hoist : root에서 yarn install 시에 공통된 모듈에 같은 버전이면 hoist 되어 root 폴더의 node_modules에 설치
 
+- commands
+
 yarn workspace info
 yarn workspace package-name add target-package
 yarn workspace package-name remove target-package
 yarn workspaces run test // This will run the chosen Yarn command in each workspace.
 
+
 ## Lerna(Lerna 기반의 MonoRepo에 대해서 고려)
 
-- Lerna : Mono-Repo를 위한 CLI 도구, git, npm을 사용하여 mono-repo 관리와 workflow를 최적화하는 도구
+- Lerna : Mono-Repo를 위한 CLI 도구, git, npm을 사용하여 mono-repo 관리와 workflow를 최적화하는 도구. 의존성 관리 등은 yarm workspace에 위임하는 추세
 
 - 기본 구조 : Root 경로 아래 packages 폴더가 있고 그 하위에 각 package 별 폴더 생성 
                  Root 경로의 package.json에는 모든 package가 공통으로 사용되는 dependencies가 명시
@@ -123,6 +126,36 @@ yarn workspaces run test // This will run the chosen Yarn command in each worksp
 4. lerna publish : 마지막 릴리즈 이후 업데이트 된 패키지 배포
 
 5. lerna exec : 각 패키지에서 임의의 커맨드 명령어 실행
+
+6. lerna version - 변경된 패키지만 버전 업데이트
+
+yarn add -W -D lerna    // root에 lerna 설치(-W)
+
+npx lerna init
+
+lerna.json
+```
+{
+  "useWorkspaces": true,
+  "npmClient": "yarn",
+  "version": "0.0.0"
+}
+```
+
+all packages/package.json
+```
+"scripts": {
+  "test": "echo test $npm_package_name"
+}
+```
+
+npx lerna run test
+```
+test @project/functions
+test @project/server
+```
+
+npx lerna run test --scope={@project/functions,@project/server}
 
 
 ### reference  
