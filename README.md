@@ -17,11 +17,6 @@
 3. 두번째 항목이 고려된 상황에서 N개의 패키지 중 배포되어야 할 패키지의 비중이 큰 경우
 
 
-Module resolving(search the module inside of node_modules if not go to parent one)
-
-require('specific-module') instead of require('../specific-module') then find the module under node_module folder
-
-
 ## Yarn Workspace
 
 1. yarn init  (for root package.json)
@@ -91,7 +86,13 @@ packages/functions/package.json
 }
 ```
 
+- concept
+
 Hoist : root에서 yarn install 시에 공통된 모듈에 같은 버전이면 hoist 되어 root 폴더의 node_modules에 설치
+
+Module resolving : search the module inside of node_modules if not go to parent one
+
+require('specific-module') instead of require('../specific-module') then find the module under node_module folder
 
 - commands
 
