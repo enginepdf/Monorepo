@@ -93,32 +93,36 @@ packages/functions/package.json
 
 Hoist : root에서 yarn install 시에 공통된 모듈에 같은 버전이면 hoist 되어 root 폴더의 node_modules에 설치
 
+yarn workspace info
+yarn workspace package-name add target-package
+yarn workspace package-name remove target-package
+yarn workspaces run test // This will run the chosen Yarn command in each workspace.
 
 ## Lerna(Lerna 기반의 MonoRepo에 대해서 고려)
 
-Lerna : Mono-Repo를 위한 CLI 도구, git, npm을 사용하여 mono-repo 관리와 workflow를 최적화하는 도구
+- Lerna : Mono-Repo를 위한 CLI 도구, git, npm을 사용하여 mono-repo 관리와 workflow를 최적화하는 도구
 
-Lerna의 기본 구조 : Root 경로 아래 packages 폴더가 있고 그 하위에 각 package 별 폴더 생성
+- 기본 구조 : Root 경로 아래 packages 폴더가 있고 그 하위에 각 package 별 폴더 생성 
                  Root 경로의 package.json에는 모든 package가 공통으로 사용되는 dependencies가 명시
+- Mode
+1. Fixed Mode : 다중 패키지의 버전이 단일 버전 라인에서 작동하며 관리
+                버전은 프로젝트 root에서 관리, lerna publish를 실행할 경우 새 버전으로 패키지 게시
+                하나의 패키지가 수정되더라도 모든 패키지는 새로운 버전 게시
 
-Fixed Mode : 다중 패키지의 버전이 단일 버전 라인에서 작동하며 관리
-             버전은 프로젝트 root에서 관리, lerna publish를 실행할 경우 새 버전으로 패키지 게시
-             하나의 패키지가 수정되더라도 모든 패키지는 새로운 버전 게시
+2. Independent Mode : 패키지의 유지 관리자가 독립적으로 패키지 버전 관리
+                      lerna publish 시 변경된 패키지에 대해서만 새 버전 업데이트
+                      버전은 각 패키지의 package.json에 명시
 
-Independent Mode : 패키지의 유지 관리자가 독립적으로 패키지 버전 관리
-                   lerna publish 시 변경된 패키지에 대해서만 새 버전 업데이트
-                   버전은 각 패키지의 package.json에 명시
+- commands
+1. lerna clean : root 제외한 package의 node_modules 제거
 
+2. lerna bootstrap : 모든 패키지의 node_modules 설치
 
-lerna clean : root 제외한 package의 node_modules 제거
+3. lerna run : 각 패키지의 package.json 에 명시된 scripts 실행
 
-lerna bootstrap : 모든 패키지의 node_modules 설치
+4. lerna publish : 마지막 릴리즈 이후 업데이트 된 패키지 배포
 
-lerna run : 각 패키지의 package.json 에 명시된 scripts 실행
-
-lerna publish : 마지막 릴리즈 이후 업데이트 된 패키지 배포
-
-lerna exec : 각 패키지에서 임의의 커맨드 명령어 실행
+5. lerna exec : 각 패키지에서 임의의 커맨드 명령어 실행
 
 
 ### reference  
