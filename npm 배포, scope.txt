@@ -42,6 +42,8 @@ reference : https://velog.io/@kler/npm-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0
 
 ** scope
 
+npm scope package는 범위 또는 그룹을 가짐
+
 npm install @scoped/package    (node_modules/@scoped/package)
 
 {
@@ -51,3 +53,26 @@ npm install @scoped/package    (node_modules/@scoped/package)
 }
 
 require('@scoped/package')
+
+
+* npm scope의 배포
+
+1. 비공개 패키지 게시 권한 있는 개인 registry
+   npm publish
+   npm publish --access restricted
+
+2. 조직(Organizations)으로 생성된 registry
+   npm 로그인 후 개인 package 항목에서 Organization 생성, 기본적으로 registry가 public 범위를 가짐, 배포는 limited
+   그 계정명으로 scope 생성(@계정명), 패키지명 : @계정명/package
+
+   npm publish --access=public
+   npm unpublish @scoped/package -f   // 72시간 내 삭제 가능
+
+
+* 범위를 가진 registry
+  사설 registry, 여러 개 registry 필요한 경우
+  범위는 하나의 registry와 N:1 관계. 하나의 범위(scope)는 하나의 registry만 연결 가능
+  해당 registry 모듈이 없을  때 기본 registry인 https://registry.npmjs.org/로 연결
+
+  1. npm login --registry-REGISTRY_PATH --scope=@SCOPE_NAME
+  2. npm config set @SCOPE_NAME:registry REGISTRY_PATH
