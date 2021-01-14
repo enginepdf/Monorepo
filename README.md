@@ -109,6 +109,7 @@ yarn workspaces run test // This will run the chosen Yarn command in each worksp
 - 기본 구조 : Root 경로 아래 packages 폴더가 있고 그 하위에 각 package 별 폴더 생성 
                  Root 경로의 package.json에는 모든 package가 공통으로 사용되는 dependencies가 명시
 - Mode
+
 1. Fixed Mode : 다중 패키지의 버전이 단일 버전 라인에서 작동하며 관리
                 버전은 프로젝트 root에서 관리, lerna publish를 실행할 경우 새 버전으로 패키지 게시
                 하나의 패키지가 수정되더라도 모든 패키지는 새로운 버전 게시
@@ -118,6 +119,7 @@ yarn workspaces run test // This will run the chosen Yarn command in each worksp
                       버전은 각 패키지의 package.json에 명시
 
 - commands
+
 1. lerna clean : root 제외한 package의 node_modules 제거
 
 2. lerna bootstrap : 모든 패키지의 node_modules 설치
@@ -129,6 +131,8 @@ yarn workspaces run test // This will run the chosen Yarn command in each worksp
 5. lerna exec : 각 패키지에서 임의의 커맨드 명령어 실행
 
 6. lerna version - 변경된 패키지만 버전 업데이트
+
+- 설치 및 사용 예시
 
 yarn add -W -D lerna    // root에 lerna 설치(-W)
 
