@@ -1,3 +1,37 @@
 reference : https://velog.io/@kler/npm-%EB%B0%B0%ED%8F%AC%ED%95%98%EA%B8%B0
             https://docs.npmjs.com/cli/v6/using-npm/scope
             https://kdydesign.github.io/2020/08/31/npm-scope-tutorial/
+
+
+1. npm 회원 가입
+
+2. npm login (on terminal)
+   npm whoami (로그인 상태 확인)
+
+3. 배포할 패키지를 git repository에 업로드
+   git init
+   git remote add origin [repository address]
+
+4. package.json
+   npm init --yes   (npm init)
+
+    name : 필수
+    version (1.0.0) : 필수
+    description (README.md)
+    main (index.js)
+    scripts (test)
+    keywords
+    author
+    license (ISC)
+    bugs
+    homepage
+
+5. 버전  관리
+   a.b.c
+   a : major update
+   b : minor update
+   c : bug fixed update
+
+6. 패키지 테스트 및 배포
+   npm install 
+   npm publish --access public
