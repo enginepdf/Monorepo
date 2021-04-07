@@ -21,8 +21,8 @@
 
 1. yarn init  (for root package.json)
 
-root/package.json
-``` 
+      
+``` root/package.json
 {
   "private": true, //  Workspaces are not meant to be published, so we’ve added this safety measure to make sure that nothing can accidentally expose them
   "workspaces": [
@@ -33,11 +33,11 @@ root/package.json
 
 2. 패키지별 package.json 생성
 
-cd packages/functions && yarn init -y
-cd packages/server && yarn init -y
+      cd packages/functions && yarn init -y
+      cd packages/server && yarn init -y
 
-server/package.json
-``` 
+
+``` server/package.json
 {
   "name": "@project/server",   // npm에서 가지고 온 모듈과 구분 위해 @포함한 prefix 사용 
   "version": "1.0.0",
@@ -50,56 +50,61 @@ server/package.json
 
 4. server 패키지에서 functions 모듈을 참조
 
-packages/functions/index.js
-```
+
+``` packages/functions/index.js
+
 module.exports = () => {
   console.log('this works!');
 };
+
 ```
 
-yarn workspace @project/server add @project/functions@1.0.0  // server 패키지에 functions 의존성 추가
+      yarn workspace @project/server add @project/functions@1.0.0  // server 패키지에 functions 의존성 추가
 
-packages/server/index.js
-``` 
+      
+``` packages/server/index.js
+
 const check=require('@project/functions');
 check()
+
 ```
 
 5. server/index.js 실행
 
-node packages/server/index
+      node packages/server/index
 
 6. npm 모듈 추가
 
-packages/server/package.json
-``` 
+
+``` packages/server/package.json
 "dependencies": {
   "@project/functions": "1.0.0",
   ...
 }
 ```
 
-packages/functions/package.json
-```
+``` packages/functions/package.json
+
 "dependencies": {
   ...
 }
+
 ```
 
 - concept
 
-Hoist : root에서 yarn install 시에 공통된 모듈에 같은 버전이면 hoist 되어 root 폴더의 node_modules에 설치
+      Hoist : root에서 yarn install 시에 공통된 모듈에 같은 버전이면 hoist 되어 root 폴더의 node_modules에 설치
 
-Module resolving : search the module inside of node_modules if not go to parent one
+      Module resolving : search the module inside of node_modules. if not, go to parent one
 
-require('specific-module') instead of require('../specific-module') then find the module under node_module folder
+      require('specific-module') instead of require('../specific-module') then find the module under node_modules folder
 
 - commands
 
-yarn workspace info
-yarn workspace package-name add target-package
-yarn workspace package-name remove target-package
-yarn workspaces run test // This will run the chosen Yarn command in each workspace.
+      yarn workspace info
+      yarn workspace package-name add target-package
+      yarn workspace package-name remove target-package
+      yarn workspaces run test // This will run the chosen Yarn command in each workspace.
 
 
 ## Lerna(Lerna 기반의 MonoRepo에 대해서 고려)
@@ -107,61 +112,66 @@ yarn workspaces run test // This will run the chosen Yarn command in each worksp
 - Lerna : Mono-Repo를 위한 CLI 도구, git, npm을 사용하여 mono-repo 관리와 workflow를 최적화하는 도구. 의존성 관리 등은 yarm workspace에 위임하는 추세
 
 - 기본 구조 : Root 경로 아래 packages 폴더가 있고 그 하위에 각 package 별 폴더 생성 
-                 Root 경로의 package.json에는 모든 package가 공통으로 사용되는 dependencies가 명시
+            Root 경로의 package.json에는 모든 package가 공통으로 사용되는 dependencies가 명시
+
 - Mode
 
-1. Fixed Mode : 다중 패키지의 버전이 단일 버전 라인에서 작동하며 관리
-                버전은 프로젝트 root에서 관리, lerna publish를 실행할 경우 새 버전으로 패키지 게시
-                하나의 패키지가 수정되더라도 모든 패키지는 새로운 버전 게시
+      1. Fixed Mode : 다중 패키지의 버전이 단일 버전 라인에서 작동하며 관리
+                      버전은 프로젝트 root에서 관리, lerna publish를 실행할 경우 새 버전으로 패키지 게시
+                      하나의 패키지가 수정되더라도 모든 패키지는 새로운 버전 게시
 
-2. Independent Mode : 패키지의 유지 관리자가 독립적으로 패키지 버전 관리
-                      lerna publish 시 변경된 패키지에 대해서만 새 버전 업데이트
-                      버전은 각 패키지의 package.json에 명시
+      2. Independent Mode : 패키지의 유지 관리자가 독립적으로 패키지 버전 관리
+                            lerna publish 시 변경된 패키지에 대해서만 새 버전 업데이트
+                            버전은 각 패키지의 package.json에 명시
 
 - commands
 
-1. lerna clean : root 제외한 package의 node_modules 제거
+      1. lerna clean : root 제외한 package의 node_modules 제거
 
-2. lerna bootstrap : 모든 패키지의 node_modules 설치
+      2. lerna bootstrap : 모든 패키지의 node_modules 설치
 
-3. lerna run : 각 패키지의 package.json 에 명시된 scripts 실행
+      3. lerna run : 각 패키지의 package.json 에 명시된 scripts 실행
 
-4. lerna publish : 마지막 릴리즈 이후 업데이트 된 패키지 배포
+      4. lerna publish : 마지막 릴리즈 이후 업데이트 된 패키지 배포
 
-5. lerna exec : 각 패키지에서 임의의 커맨드 명령어 실행
+      5. lerna exec : 각 패키지에서 임의의 커맨드 명령어 실행
 
-6. lerna version - 변경된 패키지만 버전 업데이트
+      6. lerna version : 변경된 패키지만 버전 업데이트
 
 - 설치 및 사용 예시
 
-yarn add -W -D lerna    // root에 lerna 설치(-W)
+      yarn add -W -D lerna    // root에 lerna 설치(-W)
 
-npx lerna init
+      npx lerna init
 
-lerna.json
-```
+
+``` lerna.json
+
 {
   "useWorkspaces": true,
   "npmClient": "yarn",
   "version": "0.0.0"
 }
+
 ```
 
-all packages/package.json
-```
+
+``` all packages/package.json
+
 "scripts": {
   "test": "echo test $npm_package_name"
 }
+
 ```
 
-npx lerna run test
+      npx lerna run test
 ```
+
 test @project/functions
 test @project/server
 ```
 
-npx lerna run test --scope={@project/functions,@project/server}
-
+      npx lerna run test --scope={@project/functions,@project/server}
 
 ### reference  
 https://velog.io/@kdydesign/Lerna%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%9C-Mono-Repo-%EA%B5%AC%EC%B6%95-%EC%99%84%EB%B2%BD-%EA%B0%80%EC%9D%B4%EB%93%9C-%EA%B0%9C%EB%85%90-%EC%A0%95%EB%A6%AC
