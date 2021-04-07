@@ -21,8 +21,8 @@
 
 1. yarn init  (for root package.json)
 
-      
-``` root/package.json
+      root/package.json
+``` 
 {
   "private": true, //  Workspaces are not meant to be published, so we’ve added this safety measure to make sure that nothing can accidentally expose them
   "workspaces": [
@@ -36,8 +36,8 @@
       cd packages/functions && yarn init -y
       cd packages/server && yarn init -y
 
-
-``` server/package.json
+      server/package.json
+``` 
 {
   "name": "@project/server",   // npm에서 가지고 온 모듈과 구분 위해 @포함한 prefix 사용 
   "version": "1.0.0",
@@ -50,8 +50,8 @@
 
 4. server 패키지에서 functions 모듈을 참조
 
-
-``` packages/functions/index.js
+      packages/functions/index.js
+``` 
 
 module.exports = () => {
   console.log('this works!');
@@ -61,8 +61,8 @@ module.exports = () => {
 
       yarn workspace @project/server add @project/functions@1.0.0  // server 패키지에 functions 의존성 추가
 
-      
-``` packages/server/index.js
+      packages/server/index.js         
+``` 
 
 const check=require('@project/functions');
 check()
@@ -75,15 +75,15 @@ check()
 
 6. npm 모듈 추가
 
-
-``` packages/server/package.json
+      packages/server/package.json
+``` 
 "dependencies": {
   "@project/functions": "1.0.0",
   ...
 }
 ```
-
-``` packages/functions/package.json
+      packages/functions/package.json
+``` 
 
 "dependencies": {
   ...
@@ -144,8 +144,8 @@ check()
 
       npx lerna init
 
-
-``` lerna.json
+      lerna.json
+``` 
 
 {
   "useWorkspaces": true,
@@ -155,8 +155,8 @@ check()
 
 ```
 
-
-``` all packages/package.json
+      all packages/package.json
+``` 
 
 "scripts": {
   "test": "echo test $npm_package_name"
