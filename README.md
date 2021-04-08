@@ -149,8 +149,8 @@ packages/functions/package.json
 
       npx lerna init
 
-      lerna.json
-``` 
+```
+ lerna.json 
 
 {
   "useWorkspaces": true,
